@@ -4,18 +4,18 @@ import Navigation from "../../components/Navigation/Navigation";
 import Footer from "../../components/Footer/Footer";
 import { useCookies } from "react-cookie";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser} from "../../store/authSlice.js";
+import { setUser } from "../../store/authSlice.js";
 import axios from "axios";
 
 const Cart = () => {
 	const [count, setCount] = useCookies(["productCount"]);
 	const { auth } = useSelector((state) => state.auth);
 	const { user } = useSelector((state) => state.auth);
-	const [val, setVal] = useState(Number(count.productCount));
+	const [val, setVal] = useState(Number(count.productCount) ? Number(count.productCount) : 0);
 	const dispatch = useDispatch();
 
 	const handleChange = async (e) => {
-		if (e.key === "Enter") {
+		if (e.key === "Enter" && e.target.value >= 0) {
 			e.preventDefault();
 			try {
 				if (e.target.value === "") e.target.value = 0;
@@ -48,12 +48,14 @@ const Cart = () => {
 	const handleSubtract = async (e) => {
 		e.preventDefault();
 		try {
-			setCount("productCount", val - 1);
-			setVal(Number(val) - 1);
-			if (auth) {
-				const updatedCart = await axios.post("http://localhost:4000/api/cart", { _id: user._id, product: val - 1 }, { withCredentials: true });
-				const { password, ...details } = updatedCart.data;
-				dispatch(setUser(details));
+			if (e.target.value > 0) {
+				setCount("productCount", val - 1);
+				setVal(Number(val) - 1);
+				if (auth) {
+					const updatedCart = await axios.post("http://localhost:4000/api/cart", { _id: user._id, product: val - 1 }, { withCredentials: true });
+					const { password, ...details } = updatedCart.data;
+					dispatch(setUser(details));
+				}
 			}
 		} catch (err) {
 			console.log(err);
@@ -83,12 +85,12 @@ const Cart = () => {
 							<img className={styles.image} src="https://www.rawconcoctions.com/cdn/shop/products/IMG_4520_Original.jpg?v=1653404112&width=990" alt="ZOFLA"></img>
 						</span>
 						<span className={styles.qty}>
-							<span className={styles.plus} onClick={handleAdd}>
-								+
-							</span>
-							<input value={val} type="number" className={styles.count} onKeyDown={handleChange} onChange={(e) => setVal(e.target.value)}></input>
 							<span className={styles.minus} onClick={handleSubtract}>
 								-
+							</span>
+							<input placeholder="0" value={val} type="number" className={styles.count} onKeyDown={handleChange} onChange={(e) => setVal(e.target.value)}></input>
+							<span className={styles.plus} onClick={handleAdd}>
+								+
 							</span>
 						</span>
 						<span className={styles.price}>Rs {val * 399}</span>

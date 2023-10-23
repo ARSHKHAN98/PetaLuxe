@@ -7,12 +7,13 @@ import { updateCart } from "./controller/cartController.js";
 const router = express.Router();
 
 router.post("/api/login", login);
-router.get("/api/logout", verifyToken, logout);
+router.get("/api/logout", logout);
 router.post("/api/register", register);
 router.get("/api/shipping", verifyToken, all);
 router.post("/api/shipping", verifyToken, add);
 router.put("/api/shipping", verifyToken, update);
 router.delete("/api/shipping", verifyToken, remove);
-router.post("/api/cart", updateCart);
+router.post("/api/cart", verifyToken, updateCart);
+router.post("/api/check", verifyToken);
 
 export default router;

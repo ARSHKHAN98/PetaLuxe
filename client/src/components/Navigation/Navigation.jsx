@@ -1,11 +1,10 @@
 import React from "react";
 import style from "./Navigation.module.css";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import image from "../../images/LogoLight.png";
 import { useDispatch } from "react-redux";
-import { setUser, setAuth } from "../../store/authSlice.js";
+import { setAuth, deleteUser } from "../../store/authSlice.js";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router";
@@ -19,7 +18,7 @@ const Navigation = () => {
 		e.preventDefault();
 		try {
 			await axios.get("http://localhost:4000/api/logout", { withCredentials: true });
-			dispatch(setUser(null));
+			dispatch(deleteUser());
 			dispatch(setAuth({ auth: false }));
 		} catch (err) {
 			console.log(err);

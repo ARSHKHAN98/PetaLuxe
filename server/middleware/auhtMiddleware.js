@@ -12,14 +12,16 @@ export const verifyToken = async (req, res, next) => {
 				.split("=")[1])
 		: undefined;
 	if (!accessToken) {
-		res.status(401).send("Access Token Expired, Please Login Again");
+		if (!req.body.check) res.status(401).send("Access Token Expired, Please Login Again");
+		else res.status(200).send("Re-login");
 	} else {
 		try {
 			const decoded = jwt.verify(accessToken, process.env.TOKEN_SECRET);
-			const newAccessToken = jwt.sign({ user: decoded.user }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
+			const newAccessToken = jwt.sign({ user: decoded.user }, process.env.TOKEN_SECRET, { expiresIn: "30d" });
 			req.user = decoded.user;
 			res.cookie("accessToken", newAccessToken, { httpOnly: true });
-			next();
+			if (!req.body.check) next();
+			else res.status(200).send("Access Token Found");
 		} catch (err) {
 			res.status(500).send({ message: err.message });
 		}

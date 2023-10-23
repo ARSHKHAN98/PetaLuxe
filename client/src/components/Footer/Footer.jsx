@@ -14,7 +14,6 @@ const Footer = () => {
 				</div>
 				<div className={style.right}>
 					<div className={style.col1}>
-						{/* <div className={style.colhead}>Info 1</div> */}
 						<div className={style.col} onClick={() => history("/termsandconditions")}>
 							Terms & Conditions
 						</div>
@@ -25,18 +24,6 @@ const Footer = () => {
 							Shipping Policy
 						</div>
 					</div>
-					{/* <div className={style.col1}>
-						<div className={style.colhead}>Info 2</div>
-						<div className={style.col} onClick={() => history("/termsandconditions")}>
-							Terms & Conditions
-						</div>
-						<div className={style.col} onClick={() => history("/refundpolicy")}>
-							Return Policy
-						</div>
-						<div className={style.col} onClick={() => history("/shippingpolicy")}>
-							Shipping Policy
-						</div>
-					</div> */}
 				</div>
 			</div>
 		</div>
