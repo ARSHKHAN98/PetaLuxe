@@ -7,7 +7,7 @@ import { updateCart } from "./controller/cartController.js";
 const router = express.Router();
 
 router.post("/api/login", login);
-router.post("/api/logout", verifyToken, logout);
+router.get("/api/logout", verifyToken, logout);
 router.post("/api/register", register);
 router.get("/api/shipping", verifyToken, all);
 router.post("/api/shipping", verifyToken, add);
