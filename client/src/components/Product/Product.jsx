@@ -17,10 +17,10 @@ const Product = (props) => {
 	const handleAdd = async (e) => {
 		e.preventDefault();
 		try {
-			setCount("productCount", Number(count.productCount) + 1, { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) });
+			if (count.productCount) setCount("productCount", Number(count.productCount) + 1, { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) });
+			else setCount("productCount", 1, { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) });
 			if (auth) {
 				const updatedCart = await axios.post("http://localhost:4000/api/cart", { _id: user._id, product: count.productCount + 1 }, { withCredentials: true });
-				setCount("productCount", Number(count.productCount) + 1, { maxAge: 30 * 24 * 60 * 60 });
 				const { password, ...details } = updatedCart.data;
 				dispatch(setUser(details));
 			}
