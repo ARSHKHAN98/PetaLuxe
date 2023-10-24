@@ -93,8 +93,8 @@ const Cart = () => {
 								-
 							</span>
 						</span>
-						<span className={styles.price}>Rs 399</span>
-						<span className={styles.total}>Rs {val * 399}</span>
+						<span className={styles.price}>₹ 399</span>
+						<span className={styles.total}>₹ {val * 399}</span>
 					</div>
 				</div>
 				<div className={styles.right}>
@@ -103,20 +103,20 @@ const Cart = () => {
 					<div className={styles.costs}>
 						<div className={styles.cost}>
 							<span className={styles.charge}>Total Cost</span>
-							<span className={styles.rupees}>Rs {val * 399}</span>
+							<span className={styles.rupees}>₹ {val * 399}</span>
 						</div>
 						<div className={styles.cost}>
 							<span className={styles.charge}>Shipping Charges</span>
-							<span className={styles.rupees}>Rs {val >= 3 || val === 0 ? 0 : 75}</span>
+							<span className={styles.rupees}>₹ {val >= 3 || val === 0 ? 0 : 75}</span>
 						</div>
 						<div className={styles.cost}>
 							<span className={styles.charge}>Tax</span>
-							<span className={styles.rupees}>Rs {Math.ceil((val * 399 * 18) / 100)}</span>
+							<span className={styles.rupees}>₹ {Math.ceil((val * 399 * 18) / 100)}</span>
 						</div>
 						<div className={styles.bar}></div>
 						<div className={styles.cost}>
 							<span className={styles.charge}>Total Cost</span>
-							<span className={styles.rupees}>Rs {val * 399 + (val >= 3 ? 0 : 75) + Math.ceil((val * 399 * 18) / 100)}</span>
+							<span className={styles.rupees}>₹ {val * 399 + (val >= 3 ? 0 : 75) + Math.ceil((val * 399 * 18) / 100)}</span>
 						</div>
 						<button className={styles.button}>Checkout</button>
 					</div>
