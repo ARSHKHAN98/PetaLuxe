@@ -12,8 +12,6 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { deleteUser, setAuth } from "./store/authSlice";
 
-// useeffect se ek endpoint se accesstoekn check check krna hai backend me or accordingly redux
-
 function App() {
 	const dispatch = useDispatch();
 
