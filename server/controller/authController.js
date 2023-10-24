@@ -33,13 +33,13 @@ export const login = async (req, res) => {
 		if (!isPasswordCorrect) return res.status(404).json({ message: "Invalid credentials" });
 
 		const { password, profilepic, ...others } = existingUser._doc;
-		const token = jwt.sign({ user: others }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
-
-		res.cookie("accessToken", token, {
-			httpOnly: true,
-		});
+		const token = jwt.sign({ user: others }, process.env.TOKEN_SECRET, { expiresIn: "30d" });
+		const expirationDate = new Date();
+		expirationDate.setDate(expirationDate.getDate() + 30);
+		res.cookie("accessToken", token, { httpOnly: true, expires: expirationDate });
 		res.status(200).json(others);
 	} catch (error) {
+		console.log(error);
 		res.status(500).json({ message: "Something went wrong" });
 	}
 };
