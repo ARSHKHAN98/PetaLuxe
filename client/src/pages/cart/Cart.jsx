@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Cart.module.css";
 import Navigation from "../../components/Navigation/Navigation";
 import Footer from "../../components/Footer/Footer";
@@ -13,6 +13,10 @@ const Cart = () => {
 	const { user } = useSelector((state) => state.auth);
 	const [val, setVal] = useState(Number(count.productCount) ? Number(count.productCount) : 0);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	const handleChange = async (e) => {
 		if (e.key === "Enter" && e.target.value >= 0) {
